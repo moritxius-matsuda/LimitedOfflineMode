@@ -135,4 +135,83 @@ public class LimitedOfflineModePlugin {
     public Set<String> getAllowedOfflineUsers() {
         return new HashSet<>(allowedOfflineUsers);
     }
+    
+    /**
+     * Fügt einen Benutzer zur Offline-Whitelist hinzu
+     * @param username Der Benutzername
+     * @return "SUCCESS", "ALREADY_EXISTS" oder "ERROR"
+     */
+    public String addOfflineUser(String username) {
+        try {
+            String lowerUsername = username.toLowerCase();
+            
+            // Prüfe ob der Benutzer bereits existiert
+            if (allowedOfflineUsers.contains(lowerUsername)) {
+                return "ALREADY_EXISTS";
+            }
+            
+            // Füge den Benutzer hinzu
+            allowedOfflineUsers.add(lowerUsername);
+            
+            // Speichere in die Datei
+            saveConfiguration();
+            
+            logger.info("Added offline user: {}", username);
+            return "SUCCESS";
+            
+        } catch (Exception e) {
+            logger.error("Failed to add offline user: " + username, e);
+            return "ERROR";
+        }
+    }
+    
+    /**
+     * Entfernt einen Benutzer aus der Offline-Whitelist
+     * @param username Der Benutzername
+     * @return "SUCCESS", "NOT_FOUND" oder "ERROR"
+     */
+    public String removeOfflineUser(String username) {
+        try {
+            String lowerUsername = username.toLowerCase();
+            
+            // Prüfe ob der Benutzer existiert
+            if (!allowedOfflineUsers.contains(lowerUsername)) {
+                return "NOT_FOUND";
+            }
+            
+            // Entferne den Benutzer
+            allowedOfflineUsers.remove(lowerUsername);
+            
+            // Speichere in die Datei
+            saveConfiguration();
+            
+            logger.info("Removed offline user: {}", username);
+            return "SUCCESS";
+            
+        } catch (Exception e) {
+            logger.error("Failed to remove offline user: " + username, e);
+            return "ERROR";
+        }
+    }
+    
+    /**
+     * Speichert die aktuelle Konfiguration in die Datei
+     */
+    private void saveConfiguration() throws IOException {
+        Path configFile = dataDirectory.resolve("allowed-users.txt");
+        
+        StringBuilder content = new StringBuilder();
+        content.append("# LimitedOfflineMode Configuration\n");
+        content.append("# Liste der Benutzernamen, die im Offline-Modus beitreten dürfen\n");
+        content.append("# Ein Benutzername pro Zeile\n");
+        content.append("# Zeilen die mit # beginnen sind Kommentare\n");
+        content.append("# Diese Datei wird automatisch vom Plugin verwaltet\n\n");
+        
+        // Sortiere die Benutzer alphabetisch für bessere Lesbarkeit
+        allowedOfflineUsers.stream()
+            .sorted()
+            .forEach(user -> content.append(user).append("\n"));
+        
+        Files.writeString(configFile, content.toString());
+    }
 }

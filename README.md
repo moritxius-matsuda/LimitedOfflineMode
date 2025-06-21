@@ -6,8 +6,12 @@ Ein Velocity-Plugin, das es bestimmten Benutzern erlaubt, im Offline-Modus beizu
 
 - ✅ Erlaubt spezifischen Benutzern den Offline-Beitritt
 - ✅ Konfigurierbare Benutzerliste
-- ✅ Admin-Commands zum Verwalten
+- ✅ **Schöne interaktive Commands** mit klickbaren Elementen
+- ✅ **Add/Remove Commands** für einfache Benutzerverwaltung
+- ✅ **Tab-Completion** für alle Commands
+- ✅ **Farbige Nachrichten** mit Emojis und Formatierung
 - ✅ Hot-Reload der Konfiguration
+- ✅ Automatische Speicherung in Konfigurationsdatei
 - ✅ Detailliertes Logging
 
 ## Installation
@@ -41,13 +45,67 @@ MeinTestAccount
 
 ## Commands
 
+Das Plugin bietet eine schöne, interaktive Command-Oberfläche mit klickbaren Elementen und farbigen Nachrichten.
+
+### `/offlinemode` oder `/offlinemode help`
+- **Permission:** `limitedofflinemode.admin`
+- **Beschreibung:** Zeigt eine schöne Hilfe-Übersicht mit allen verfügbaren Commands
+
 ### `/offlinemode list`
 - **Permission:** `limitedofflinemode.admin`
-- **Beschreibung:** Zeigt alle erlaubten Offline-Benutzer an
+- **Beschreibung:** Zeigt alle erlaubten Offline-Benutzer in einer schönen Liste an
+- **Features:** 
+  - Nummerierte Liste mit Emojis
+  - Klickbare "Remove"-Links für jeden Benutzer
+  - Zeigt Anzahl der Benutzer an
+
+### `/offlinemode add <username>`
+- **Permission:** `limitedofflinemode.admin`
+- **Beschreibung:** Fügt einen Benutzer zur Offline-Whitelist hinzu
+- **Features:**
+  - Automatische Speicherung in die Konfigurationsdatei
+  - Schöne Erfolgs-/Fehlermeldungen
+  - Prüfung auf bereits existierende Benutzer
+
+### `/offlinemode remove <username>`
+- **Permission:** `limitedofflinemode.admin`
+- **Beschreibung:** Entfernt einen Benutzer aus der Offline-Whitelist
+- **Features:**
+  - Tab-Completion mit existierenden Benutzern
+  - Automatische Speicherung in die Konfigurationsdatei
+  - Schöne Erfolgs-/Fehlermeldungen
 
 ### `/offlinemode reload`
 - **Permission:** `limitedofflinemode.admin`
 - **Beschreibung:** Lädt die Konfiguration neu, ohne Server-Neustart
+- **Features:** Zeigt Anzahl der geladenen Benutzer vor und nach dem Reload
+
+## Command-Beispiele
+
+```
+/offlinemode help
+# Zeigt eine schöne Hilfe-Übersicht mit klickbaren Commands
+
+/offlinemode add TestUser123
+# ✅ SUCCESS
+#    User TestUser123 has been added to the offline whitelist!
+#    They can now join in offline mode.
+
+/offlinemode list
+# ═══════════════════════════════════════
+#         Offline Whitelist
+# ═══════════════════════════════════════
+# 
+# ✅ Allowed offline users (2):
+# 
+#  1. 👤 TestUser123 [Remove]
+#  2. 👤 OfflinePlayer [Remove]
+
+/offlinemode remove TestUser123
+# ✅ SUCCESS
+#    User TestUser123 has been removed from the offline whitelist!
+#    They now require online authentication.
+```
 
 ## Permissions
 
