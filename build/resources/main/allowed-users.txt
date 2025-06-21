@@ -1,0 +1,5 @@
+# Add usernames that should be allowed to join in offline mode
+# Each username should be on a new line
+# Example:
+# testuser
+# admin

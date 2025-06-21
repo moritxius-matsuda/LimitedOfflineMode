@@ -1,20 +1,29 @@
 package com.example.limitedofflinemode;
 
+import com.google.inject.Inject;
 import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.event.ResultedEvent.ComponentResult;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.LoginEvent;
 import com.velocitypowered.api.event.connection.PreLoginEvent;
+import com.velocitypowered.api.event.connection.PreLoginEvent.PreLoginComponentResult;
+import com.velocitypowered.api.event.player.GameProfileRequestEvent;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.util.GameProfile;
+import com.velocitypowered.api.util.UuidUtils;
+import java.util.UUID;
+import java.util.Collections;
+
 import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @Plugin(
@@ -30,6 +39,7 @@ public class LimitedOfflineModePlugin {
     private final ProxyServer proxy;
     private final Path dataDirectory;
 
+    @Inject
     public LimitedOfflineModePlugin(Logger logger, ProxyServer proxy, @DataDirectory Path dataDirectory) {
         this.logger = logger;
         this.proxy = proxy;
@@ -39,7 +49,6 @@ public class LimitedOfflineModePlugin {
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
         loadAllowedUsers();
-        proxy.getEventManager().register(this, this);
     }
 
     private void loadAllowedUsers() {
@@ -47,8 +56,9 @@ public class LimitedOfflineModePlugin {
             Path configPath = dataDirectory.resolve("allowed-users.txt");
             if (Files.exists(configPath)) {
                 Files.readAllLines(configPath).forEach(line -> {
-                    if (!line.trim().isEmpty()) {
-                        allowedUsers.add(line.trim().toLowerCase());
+                    String trimmed = line.trim();
+                    if (!trimmed.isEmpty() && !trimmed.startsWith("#")) {
+                        allowedUsers.add(trimmed.toLowerCase(Locale.ROOT));
                     }
                 });
                 logger.info("Loaded {} allowed users", allowedUsers.size());
@@ -64,27 +74,32 @@ public class LimitedOfflineModePlugin {
 
     @Subscribe(order = PostOrder.FIRST)
     public void onLogin(LoginEvent event) {
-        if (event.getResult() == ComponentResult.allowed()) {
-            return;
-        }
-    
-        String username = event.getPlayer().getUsername();
-        if (username != null && allowedUsers.contains(username.toLowerCase())) {
-            event.setResult(ComponentResult.allowed());
-            logger.info("Allowed offline user: {}", username);
-        }
+        // This is now handled by PreLoginEvent and GameProfileRequestEvent
     }
 
     @Subscribe(order = PostOrder.FIRST)
     public void onPreLogin(PreLoginEvent event) {
-        if (event.getResult() == PreLoginEvent.PreLoginComponentResult.allowed()) {
-            return;
-        }
-
         String username = event.getUsername();
-        if (username != null && allowedUsers.contains(username.toLowerCase())) {
-            event.setResult(PreLoginEvent.PreLoginComponentResult.allowed());
-            logger.info("Pre-login allowed for offline user: {}", username);
+        if (username != null && allowedUsers.contains(username.toLowerCase(Locale.ROOT))) {
+            // CRITICAL FIX: Force offline mode for allowed users
+            event.setResult(PreLoginComponentResult.forceOfflineMode());
+            logger.info("Forcing offline mode for user: {}", username);
+        }
+    }
+
+    @Subscribe(order = PostOrder.FIRST)
+    public void onGameProfileRequest(GameProfileRequestEvent event) {
+        String username = event.getUsername();
+        if (username != null && allowedUsers.contains(username.toLowerCase(Locale.ROOT))) {
+            UUID offlineUuid = UuidUtils.generateOfflinePlayerUuid(username);
+            GameProfile offlineProfile = new GameProfile(
+                offlineUuid, 
+                username, 
+                Collections.emptyList()
+            );
+            
+            event.setGameProfile(offlineProfile);
+            logger.info("Using offline profile for user: {}", username);
         }
     }
 }
