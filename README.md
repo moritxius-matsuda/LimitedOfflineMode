@@ -150,4 +150,3 @@ THIS PLUGIN IS PROVIDED "AS IS" WITHOUT WARRANTY. THE AUTHORS SHALL NOT BE LIABL
 
 **By using this software, you affirm that you are a server administrator using it solely for authorized testing purposes and accept full responsibility for preventing unauthorized access.**
 
-```
