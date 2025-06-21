@@ -20,7 +20,12 @@ dependencies {
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(11)
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.release = 11  // Kompiliere für Java 11 Kompatibilität
 }
 
 shadowJar {
