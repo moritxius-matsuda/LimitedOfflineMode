@@ -72,16 +72,11 @@ public class LimitedOfflineModePlugin {
         }
     }
 
-    @Subscribe(order = PostOrder.FIRST)
-    public void onLogin(LoginEvent event) {
-        // This is now handled by PreLoginEvent and GameProfileRequestEvent
-    }
 
     @Subscribe(order = PostOrder.FIRST)
     public void onPreLogin(PreLoginEvent event) {
         String username = event.getUsername();
         if (username != null && allowedUsers.contains(username.toLowerCase(Locale.ROOT))) {
-            // CRITICAL FIX: Force offline mode for allowed users
             event.setResult(PreLoginComponentResult.forceOfflineMode());
             logger.info("Forcing offline mode for user: {}", username);
         }
