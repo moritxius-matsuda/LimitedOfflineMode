@@ -2,7 +2,7 @@
 
 ## 📖 Overview
 
-This Velocity plugin allows offline accounts to join their online-mode proxy using specific whitelisted accounts in offline mode. This is designed exclusively for testing and administrative purposes, eliminating the need for separate testing accounts.
+This Velocity plugin allows offline accounts to join their online-mode proxy using specific whitelisted accounts in offline mode. This is designed exclusively for testing and administrative purposes, eliminating the need for separate testing accounts. **THIS PLUGIN IS NOT COMPATIBLE WITH BUNGEECORD! Support is planned for the future**
 
 ## 🚀 Intended Use Cases
 
