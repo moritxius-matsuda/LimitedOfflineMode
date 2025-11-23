@@ -1,8 +1,8 @@
-# LimitedOfflineMode - Velocity Plugin
+# LimitedOfflineMode - Velocity & BungeeCord Plugin
 
 ## 📖 Overview
 
-This Velocity plugin allows offline accounts to join their online-mode proxy using specific whitelisted accounts in offline mode. This is designed exclusively for testing and administrative purposes, eliminating the need for separate testing accounts. **THIS PLUGIN IS NOT COMPATIBLE WITH BUNGEECORD! Support is planned for the future**
+This plugin allows offline accounts to join online-mode proxy servers using specific whitelisted usernames in offline mode. Supports both **Velocity** and **BungeeCord** proxy platforms. This is designed exclusively for testing and administrative purposes, eliminating the need for separate testing accounts.
 
 ## 🚀 Intended Use Cases
 
@@ -36,6 +36,8 @@ Any other use violates Mojang's EULA and the terms of this software license. Vio
 
 ## ⚙️ Installation
 
+### Velocity Installation
+
 1. Download the plugin JAR from the Releases section
 
 2. Place in your Velocity proxy's `plugins` folder
@@ -46,23 +48,38 @@ Any other use violates Mojang's EULA and the terms of this software license. Vio
 
 5. Restart the server
 
+### BungeeCord Installation
+
+1. Download the plugin JAR from the Releases section
+
+2. Place in your BungeeCord proxy's `plugins` folder
+
+3. Start the server to generate configuration files
+
+4. Edit `allowed-users.txt` in the `plugins/LimitedOfflineMode/` directory
+
+5. Restart the server
+
 ## 📝 Configuration
 
 Edit `allowed-users.txt` in your plugin's directory:
 
 ```txt
-
 # Use for server testing and development ONLY
-
 ServerAdmin
-
 HeadDeveloper
-
 ```
 
----
+## 🔄 Platform Support
 
-# ⚠️ DISCLAIMER
+| Feature | Velocity | BungeeCord |
+|---------|----------|-----------|
+| Offline Mode Whitelist | ✅ Full Support | ✅ Full Support |
+| Configuration Reload | ✅ Yes | ✅ Yes (manual) |
+| Player UUID Handling | ✅ Offline UUIDs | ✅ Standard |
+| Authentication Bypass | ✅ Yes | ✅ Yes |
+
+
 
 ## LimitedOfflineMode - Velocity Plugin
 
@@ -150,3 +167,4 @@ THIS PLUGIN IS PROVIDED "AS IS" WITHOUT WARRANTY. THE AUTHORS SHALL NOT BE LIABL
 
 **By using this software, you affirm that you are a server administrator using it solely for authorized testing purposes and accept full responsibility for preventing unauthorized access.**
 
+```
