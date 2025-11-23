@@ -1,0 +1,7 @@
+{
+  "name": "LimitedOfflineMode",
+  "main": "de.moritxius.limitedofflinemode.LimitedOfflineModePlugin",
+  "version": "${project.version}",
+  "description": "Allows specific usernames to join in offline mode while server is in online mode",
+  "author": "Moritxius im Auftrag von Matsuda Béla"
+}

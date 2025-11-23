@@ -1,0 +1,5 @@
+name: LimitedOfflineMode
+main: de.moritxius.limitedofflinemode.LimitedOfflineModeBungeeCordPlugin
+version: 1.1
+description: Allows specific usernames to join in offline mode while server is in online mode
+author: Moritxius im Auftrag von Matsuda Béla

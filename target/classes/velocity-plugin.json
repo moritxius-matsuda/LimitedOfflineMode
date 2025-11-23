@@ -1,0 +1,1 @@
+{"id":"limited-offline-mode","name":"LimitedOfflineMode","version":"1.0-SNAPSHOT","description":"Allows specific usernames to join in offline mode while server is in online mode","authors":[],"dependencies":[],"main":"de.moritxius.limitedofflinemode.LimitedOfflineModePlugin"}
