@@ -1,10 +1,10 @@
 # LimitedOfflineMode - Velocity & BungeeCord Plugin
 
-## 📖 Overview
+## Overview
 
 This plugin allows offline accounts to join online-mode proxy servers using specific whitelisted usernames in offline mode. Supports both **Velocity** and **BungeeCord** proxy platforms. This is designed exclusively for testing and administrative purposes, eliminating the need for separate testing accounts.
 
-## 🚀 Intended Use Cases
+## Intended Use Cases
 
 - **Administrative Testing**: Test server functionality without requiring a separate Minecraft account
 
@@ -46,7 +46,7 @@ By using this plugin, you acknowledge and agree that you:
 
 This plugin is provided **“as is”**, without warranty. The developers are not liable for damages, security issues, or EULA violations resulting from improper use.
 
-## ⚙️ Installation
+## Installation
 
 1. Download the plugin JAR
 
@@ -58,7 +58,7 @@ This plugin is provided **“as is”**, without warranty. The developers are no
 
 5. Restart the server
 
-## 📝 Configuration
+## Configuration
 
 Edit `allowed-users.txt` in your plugin's directory:
 
@@ -68,7 +68,7 @@ ServerAdmin
 HeadDeveloper
 ```
 
-## 🔄 Platform Support
+## Platform Support
 
 | Feature | Velocity | BungeeCord |
 |---------|----------|-----------|
