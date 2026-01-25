@@ -1,7 +1,7 @@
 # LimitedOfflineMode - Velocity & BungeeCord Plugin
 
+[![Available on Modrinth](https://raw.githubusercontent.com/vLuckyyy/badges/main/avaiable-on-modrinth.svg)](https://modrinth.com/plugin/limited-offline-mode)
 [![Available on SpigotMC](https://raw.githubusercontent.com/vLuckyyy/badges/refs/heads/main/available-on-spigotmc.svg)](https://www.spigotmc.org/resources/limited-offline-mode.132057/)
-
 ## Overview
 
 This plugin allows offline accounts to join online-mode proxy servers using specific whitelisted usernames in offline mode. Supports both **Velocity** and **BungeeCord** proxy platforms. This is designed exclusively for testing and administrative purposes, eliminating the need for separate testing accounts.
