@@ -127,6 +127,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
                 <version>3.1.0</version>
                 <configuration>
                     <shadedArtifactAttached>false</shadedArtifactAttached>
