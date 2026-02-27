@@ -6,7 +6,7 @@
 
     <groupId>de.moritxius</groupId>
     <artifactId>limited-offline-mode</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>LimitedOfflineMode</name>
@@ -131,6 +131,9 @@
                 <configuration>
                     <shadedArtifactAttached>false</shadedArtifactAttached>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
+                <version>3.1.0</version>
+                <configuration>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
