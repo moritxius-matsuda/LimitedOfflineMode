@@ -16,6 +16,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.util.GameProfile;
 import com.velocitypowered.api.util.UuidUtils;
 import net.kyori.adventure.text.Component;
+import org.bstats.velocity.Metrics;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -36,10 +37,12 @@ import java.util.stream.Collectors;
 @Plugin(
         id = "limited-offline-mode",
         name = "LimitedOfflineMode",
-        version = "1.0-SNAPSHOT",
+        version = "1.2",
         description = "Allows specific usernames to join in offline mode while server is in online mode"
 )
 public class LimitedOfflineModePlugin {
+
+    private static final int BSTATS_PLUGIN_ID = 29811;
 
     private final Set<String> allowedUsers = new HashSet<>();
     private final Map<String, Set<String>> playerGroups = new HashMap<>();
@@ -47,12 +50,14 @@ public class LimitedOfflineModePlugin {
     private final Logger logger;
     private final ProxyServer proxy;
     private final Path dataDirectory;
+    private final Metrics.Factory metricsFactory;
 
     @Inject
-    public LimitedOfflineModePlugin(Logger logger, ProxyServer proxy, @DataDirectory Path dataDirectory) {
+    public LimitedOfflineModePlugin(Logger logger, ProxyServer proxy, @DataDirectory Path dataDirectory, Metrics.Factory metricsFactory) {
         this.logger = logger;
         this.proxy = proxy;
         this.dataDirectory = dataDirectory;
+        this.metricsFactory = metricsFactory;
     }
 
     @Subscribe
@@ -60,6 +65,12 @@ public class LimitedOfflineModePlugin {
         loadAllowedUsers();
         loadPlayerGroups();
         registerCommands();
+        initializeMetrics();
+    }
+
+    private void initializeMetrics() {
+        metricsFactory.make(this, BSTATS_PLUGIN_ID);
+        logger.info("bStats metrics initialized for Velocity (plugin id: {})", BSTATS_PLUGIN_ID);
     }
 
     private void registerCommands() {

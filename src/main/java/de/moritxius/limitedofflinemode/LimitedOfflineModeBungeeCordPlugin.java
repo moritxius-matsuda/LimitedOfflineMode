@@ -11,6 +11,7 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
+import org.bstats.bungeecord.Metrics;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -30,10 +31,13 @@ import java.util.stream.Collectors;
  */
 public class LimitedOfflineModeBungeeCordPlugin extends Plugin implements Listener {
 
+    private static final int BSTATS_PLUGIN_ID = 29812;
+
     private final Set<String> allowedUsers = new HashSet<>();
     private final Map<String, Set<String>> playerGroups = new HashMap<>();
     private final Set<String> enabledGroups = new HashSet<>();
     private Path dataDirectory;
+    private Metrics metrics;
 
     @Override
     public void onLoad() {
@@ -51,6 +55,7 @@ public class LimitedOfflineModeBungeeCordPlugin extends Plugin implements Listen
 
         loadAllowedUsers();
         loadPlayerGroups();
+        initializeMetrics();
         getProxy().getPluginManager().registerListener(this, this);
         getProxy().getPluginManager().registerCommand(this, new GroupCommand());
         getLogger().info("LimitedOfflineMode BungeeCord plugin enabled!");
@@ -59,6 +64,11 @@ public class LimitedOfflineModeBungeeCordPlugin extends Plugin implements Listen
     @Override
     public void onDisable() {
         getLogger().info("LimitedOfflineMode BungeeCord plugin disabled!");
+    }
+
+    private void initializeMetrics() {
+        metrics = new Metrics(this, BSTATS_PLUGIN_ID);
+        getLogger().info("bStats metrics initialized for BungeeCord (plugin id: " + BSTATS_PLUGIN_ID + ")");
     }
 
     private void loadAllowedUsers() {
