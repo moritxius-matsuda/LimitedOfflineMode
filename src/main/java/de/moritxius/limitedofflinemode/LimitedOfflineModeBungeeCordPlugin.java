@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  */
 public class LimitedOfflineModeBungeeCordPlugin extends Plugin implements Listener {
 
-    private static final int BSTATS_PLUGIN_ID = 26776;
+    private static final int BSTATS_PLUGIN_ID = 29812;
 
     private final Set<String> allowedUsers = new HashSet<>();
     private final Map<String, Set<String>> playerGroups = new HashMap<>();

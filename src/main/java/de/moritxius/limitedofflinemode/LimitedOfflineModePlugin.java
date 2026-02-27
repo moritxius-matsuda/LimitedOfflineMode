@@ -37,12 +37,12 @@ import java.util.stream.Collectors;
 @Plugin(
         id = "limited-offline-mode",
         name = "LimitedOfflineMode",
-        version = "1.0-SNAPSHOT",
+        version = "1.2",
         description = "Allows specific usernames to join in offline mode while server is in online mode"
 )
 public class LimitedOfflineModePlugin {
 
-    private static final int BSTATS_PLUGIN_ID = 26776;
+    private static final int BSTATS_PLUGIN_ID = 29811;
 
     private final Set<String> allowedUsers = new HashSet<>();
     private final Map<String, Set<String>> playerGroups = new HashMap<>();
