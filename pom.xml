@@ -131,9 +131,6 @@
                 <configuration>
                     <shadedArtifactAttached>false</shadedArtifactAttached>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
-                <version>3.1.0</version>
-                <configuration>
-                    <shadedArtifactAttached>false</shadedArtifactAttached>
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
