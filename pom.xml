@@ -18,6 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <velocity.version>3.4.0-SNAPSHOT</velocity.version>
         <bungeecord.version>1.20-R0.2</bungeecord.version>
+        <bstats.version>3.2.1</bstats.version>
     </properties>
 
     <repositories>
@@ -46,6 +47,10 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -71,6 +76,22 @@
             <artifactId>slf4j-api</artifactId>
             <version>2.0.9</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- bStats Velocity -->
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-velocity</artifactId>
+            <version>${bstats.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- bStats Bungee -->
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bungeecord</artifactId>
+            <version>${bstats.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -102,20 +123,27 @@
                 </configuration>
             </plugin>
 
-            <!-- Shade Plugin (optional - zum Packen von Dependencies) -->
+            <!-- Shade Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.5.0</version>
+                <configuration>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>de.moritxius.limitedofflinemode.libs.bstats</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <shadedArtifactAttached>false</shadedArtifactAttached>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
