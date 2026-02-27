@@ -70,6 +70,37 @@ ServerAdmin
 HeadDeveloper
 ```
 
+
+## Player Groups (NEW)
+
+In addition to `allowed-users.txt`, you can now define player groups and switch them on/off with commands.
+
+### File: `player-groups.txt`
+
+Format:
+
+```txt
+# Format: groupName|enabled|player1,player2
+admins|true|ServerAdmin,HeadDeveloper
+testers|false|TestUser
+```
+
+- `groupName`: Name of the group
+- `enabled`: `true` or `false`
+- `player1,player2`: comma-separated usernames
+
+### Commands (Velocity & BungeeCord)
+
+```
+/lomgroup group add <group> <player1,player2,...>
+/lomgroup group enable <group>
+/lomgroup group disable <group>
+/lomgroup group toggle <group>
+/lomgroup group list
+```
+
+Permission: `limitedofflinemode.admin`
+
 ## Platform Support
 
 | Feature | Velocity | BungeeCord |
